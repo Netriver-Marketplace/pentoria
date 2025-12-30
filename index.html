@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pentoria - Nigeria's Premier Online Marketplace</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    Pentoria
+                </a>
+            </div>
+            <div class="nav-search">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="fashion">Fashion &amp; Style</option>
+                    <option value="home">Home &amp; Living</option>
+                    <option value="vehicles">Vehicles</option>
+                    <option value="phones">Phones &amp; Tablets</option>
+                    <option value="services">Services</option>
+                    <option value="property">Property</option>
+                    <option value="health">Health &amp; Beauty</option>
+                    <option value="sports">Sports &amp; Hobbies</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="cart-wrapper" id="cartWrapper">
+                    <a href="cart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                </div>
+                <div id="authButtons">
+                    <button class="btn-login" onclick="showModal('login')">Login</button>
+                    <button class="btn-register" onclick="showModal('register')">Register</button>
+                </div>
+                <div id="userMenu" style="display: none;">
+                    <span id="userName"></span>
+                    <div class="dropdown">
+                        <button onclick="toggleDropdown()">
+                            <i class="fas fa-user-circle"></i>
+                            <i class="fas fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content" id="userDropdown">
+                            <a href="profile.html">My Profile</a>
+                            <a href="dashboard.html" id="dashboardLink">Dashboard</a>
+                            <a href="#" onclick="logout()">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Pentoria</h1>
+                <p>Nigeria's Most Trusted Online Marketplace - Buy &amp; Sell Anything</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" id="startSellingBtn" onclick="showModal('register')">Start Selling</button>
+                    <button class="btn-secondary" onclick="window.location.href='products.html'">Start Shopping</button>
+                </div>
+            </div>
+            <div class="hero-features">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure Payments</h3>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Fast Delivery</h3>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2>Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-item" onclick="window.location.href='products.html?category=electronics'">
+                    <i class="fas fa-laptop"></i>
+                    <span>Electronics</span>
+                </div>
+                <div class="category-item" onclick="window.location.href='products.html?category=fashion'">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Fashion</span>
+                </div>
+                <div class="category-item" onclick="window.location.href='products.html?category=home'">
+                    <i class="fas fa-couch"></i>
+                    <span>Home &amp; Living</span>
+                </div>
+                <div class="category-item" onclick="window.location.href='products.html?category=vehicles'">
+                    <i class="fas fa-car"></i>
+                    <span>Vehicles</span>
+                </div>
+                <div class="category-item" onclick="window.location.href='products.html?category=phones'">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Phones</span>
+                </div>
+                <div class="category-item" onclick="window.location.href='products.html?category=services'">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Services</span>
+                </div>
+                <div class="category-item" onclick="window.location.href='products.html?category=property'">
+                    <i class="fas fa-home"></i>
+                    <span>Property</span>
+                </div>
+                <div class="category-item" onclick="window.location.href='products.html?category=health'">
+                    <i class="fas fa-spa"></i>
+                    <span>Health &amp; Beauty</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically loaded -->
+            </div>
+            <div class="text-center mt-2">
+                <button class="btn-secondary" onclick="window.location.href='products.html'">View All Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Pentoria</h3>
+                    <p>Nigeria's trusted online marketplace for buying and selling.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="products.html?category=electronics">Electronics</a></li>
+                        <li><a href="products.html?category=fashion">Fashion</a></li>
+                        <li><a href="products.html?category=vehicles">Vehicles</a></li>
+                        <li><a href="products.html?category=property">Property</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Safety Tips</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&amp;copy; 2024 Pentoria. All rights reserved. Made with &amp;hearts; in Nigeria</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('login')">&amp;times;</span>
+            <h2>Login to Pentoria</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="form-footer">
+                    Don't have an account? <a href="#" onclick="switchModal('login', 'register')">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close" onclick="closeModal('register')">&amp;times;</span>
+            <h2>Register on Pentoria</h2>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="registerPhone" placeholder="+234..." required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Account Type</label>
+                    <select id="registerType" onchange="toggleBusinessNameField()" required>
+                        <option value="buyer">Buyer</option>
+                        <option value="seller">Seller</option>
+                    </select>
+                </div>
+                <div class="form-group" id="businessNameGroup" style="display: none;">
+                    <label>Business Name</label>
+                    <input type="text" id="registerBusinessName" placeholder="Your store name">
+                </div>
+                <div class="form-group">
+                    <label>Profile Picture</label>
+                    <input type="file" id="registerProfilePic" accept="image/*">
+                </div>
+                <button type="submit" class="btn-primary">Register</button>
+                <p class="form-footer">
+                    Already have an account? <a href="#" onclick="switchModal('register', 'login')">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
